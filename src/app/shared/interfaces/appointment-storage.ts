@@ -1,4 +1,4 @@
-import { AppointmentData } from '../calender/interfaces/appointment-data';
+import { AppointmentData } from './appointment-data';
 
 export interface AppointmentStorage {
   [storageKey: string]: AppointmentData[];
