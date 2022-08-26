@@ -1,0 +1,27 @@
+.calender {
+  display: flex;
+  flex-flow: row wrap;
+  border: 1px solid gray;
+
+  .date-cell {
+    min-width: 100px;
+    min-height: 100px;
+    border: 1px solid gray;
+
+    .date {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+
+  &.weekDays .days {
+    padding: 10px 0 2px;
+    border: 1px solid gray;
+    font-size: large;
+    font-weight: 600;
+
+    .text {
+      text-align: center;
+    }
+  }
+}

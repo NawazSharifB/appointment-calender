@@ -1,0 +1,17 @@
+<div class="calender weekDays" flexLayout="row wrap">
+  <div class="days" *ngFor="let days of weekDays" fxFlex="1 1 calc(100% / 7)">
+    <p class="text">{{days}}</p>
+  </div>
+</div>
+
+<div class="calender" flexLayout="row wrap">
+  <div *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
+    <div class="date-cell" *ngIf="dayConfig; else emptyCell">
+      <p class="date">{{dayConfig.date}}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyCell>
+  <div class="date-cell"></div>
+</ng-template>
