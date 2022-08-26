@@ -25,7 +25,11 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
 
   private subscription$ = new Subscription();
 
-  constructor(private appointmentFormService: AppointmentFormService, private dataService: DataService) { }
+  constructor(
+    private appointmentFormService: AppointmentFormService,
+    private dataService: DataService,
+    private matDialogRef: MatDialogRef<CreateAppointmentComponent>,
+    ) { }
 
   ngOnInit(): void {
     this.appointmentFormService.createForm();
@@ -80,11 +84,11 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
   }
 
   closeDialogBox(value = false): void {
-    // this.matDialogRef.close(value);
+    this.matDialogRef.close(value);
   }
 
   createAppointment(): void {
-    // if (this.appointmentForm.valid) {
+    if (this.appointmentForm.valid) {
       const formValue = this.modifyFormValue(this.appointmentFormService.appointForm.value);
 
       this.subscription$.add(
@@ -102,7 +106,7 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
         },
         ),
       );
-    // }
+    }
   }
 
   private modifyFormValue(formValue: any) {

@@ -1,123 +1,121 @@
-<mat-card class="form-container">
-  <div fxLayout="row">
-    <div fxFlex="1 1 auto"></div>
-    <button mat-icon-button class="close-dialog-icon" (click)="closeDialogBox()">
-      <mat-icon>close</mat-icon>
-    </button>
+<div fxLayout="row">
+  <div fxFlex="1 1 auto"></div>
+  <button mat-icon-button class="close-dialog-icon" (click)="closeDialogBox()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<h2 class="create-form-title">Create form</h2>
+
+<form [formGroup]="appointmentForm">
+  <mat-form-field class="form-control" appearance="standard">
+    <mat-label>First Name</mat-label>
+    <input matInput placeholder="Maximum 40 Characters" formControlName="firstName" required>
+    <mat-error *ngIf="firstName.invalid">
+      <mat-error *ngIf="firstName.hasError('required')">Required</mat-error>
+      <mat-error *ngIf="firstName.hasError('maxlength')">Maximum 40 Characters</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-control" appearance="standard">
+    <mat-label>Last Name</mat-label>
+    <input matInput placeholder="Maximum 40 Characters" formControlName="lastName" required>
+    <mat-error *ngIf="lastName.invalid">
+      <mat-error *ngIf="lastName.hasError('required')">Required</mat-error>
+      <mat-error *ngIf="lastName.hasError('maxlength')">Maximum 40 Characters</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-control" appearance="standard">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Maximum 40 Characters" formControlName="email" required>
+    <mat-error *ngIf="email.invalid">
+      <mat-error *ngIf="email.hasError('required')">Required</mat-error>
+      <mat-error *ngIf="email.hasError('email')">Invalid email</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field  class="form-control" appearance="standard">
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let genderItem of genderSelection" [value]="genderItem.value" required>
+        {{genderItem.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="gender.invalid">
+      <mat-error *ngIf="email.hasError('required')">Required</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-control" appearance="standard">
+    <mat-label>Age</mat-label>
+    <input matInput placeholder="Maximum 200" formControlName="age" required>
+    <mat-error *ngIf="age.invalid">
+      <mat-error *ngIf="age.hasError('required')">Required</mat-error>
+      <mat-error *ngIf="age.hasError('max')">Maximum can be 200</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-control" appearance="standard">
+    <mat-label>Appointment Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      formControlName="date"
+      (focus)="datePicker.open()"
+      autocomplete="off"
+      readonly
+    >
+    <mat-datepicker #datePicker disabled="false" class="datePicker-icon"></mat-datepicker>
+    <mat-error *ngIf="date.invalid">
+      <mat-error *ngIf="date.hasError('required')">Required</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <h3 class="time-schedule-title">Schedule Time</h3>
+  <div formGroupName="time">
+    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="1 1 25%" appearance="standard">
+        <mat-label>Hour</mat-label>
+        <mat-select formControlName="hour">
+          <mat-option *ngFor="let hourItem of hourSelection" [value]="hourItem.value">
+            {{hourItem.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hour.invalid">
+          <mat-error *ngIf="hour.hasError('required')">Required</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="1 1 25%" appearance="standard">
+        <mat-label>Minute</mat-label>
+        <mat-select formControlName="minute">
+          <mat-option *ngFor="let minuteItem of minuteSelection" [value]="minuteItem.value">
+            {{minuteItem.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="minute.invalid">
+          <mat-error *ngIf="minute.hasError('required')">Required</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="1 1 25%" appearance="standard">
+        <mat-label>AM/PM</mat-label>
+        <mat-select formControlName="meridiem">
+          <mat-option *ngFor="let meridiemItem of meridiemSelection" [value]="meridiemItem.value">
+            {{meridiemItem.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="meridiem.invalid">
+          <mat-error *ngIf="meridiem.hasError('required')">Required</mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
-  <h2 class="create-form-title">Create form</h2>
-
-  <form [formGroup]="appointmentForm">
-    <mat-form-field class="form-control" appearance="standard">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="Maximum 40 Characters" formControlName="firstName" required>
-      <mat-error *ngIf="firstName.invalid">
-        <mat-error *ngIf="firstName.hasError('required')">Required</mat-error>
-        <mat-error *ngIf="firstName.hasError('maxlength')">Maximum 40 Characters</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-control" appearance="standard">
-      <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Maximum 40 Characters" formControlName="firstName" required>
-      <mat-error *ngIf="firstName.invalid">
-        <mat-error *ngIf="firstName.hasError('required')">Required</mat-error>
-        <mat-error *ngIf="firstName.hasError('maxlength')">Maximum 40 Characters</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-control" appearance="standard">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Maximum 40 Characters" formControlName="email" required>
-      <mat-error *ngIf="email.invalid">
-        <mat-error *ngIf="email.hasError('required')">Required</mat-error>
-        <mat-error *ngIf="email.hasError('email')">Invalid email</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field  class="form-control" appearance="standard">
-      <mat-label>Gender</mat-label>
-      <mat-select formControlName="gender">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let genderItem of genderSelection" [value]="genderItem.value">
-          {{genderItem.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="gender.invalid">
-        <mat-error *ngIf="email.hasError('required')">Required</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-control" appearance="standard">
-      <mat-label>Age</mat-label>
-      <input matInput placeholder="Maximum 200" formControlName="age" required>
-      <mat-error *ngIf="age.invalid">
-        <mat-error *ngIf="age.hasError('required')">Required</mat-error>
-        <mat-error *ngIf="age.hasError('max')">Maximum can be 200</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="form-control" appearance="standard">
-      <mat-label>Appointment Date</mat-label>
-      <input
-        matInput
-        [matDatepicker]="datePicker"
-        formControlName="date"
-        (focus)="datePicker.open()"
-        autocomplete="off"
-        readonly
-      >
-      <mat-datepicker #datePicker disabled="false" class="datePicker-icon"></mat-datepicker>
-      <mat-error *ngIf="date.invalid">
-        <mat-error *ngIf="date.hasError('required')">Required</mat-error>
-      </mat-error>
-    </mat-form-field>
-
-    <h3 class="time-schedule-title">Schedule Time</h3>
-    <div formGroupName="time">
-      <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-        <mat-form-field fxFlex="1 1 25%" appearance="standard">
-          <mat-label>Hour</mat-label>
-          <mat-select formControlName="hour">
-            <mat-option *ngFor="let hourItem of hourSelection" [value]="hourItem.value">
-              {{hourItem.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="hour.invalid">
-            <mat-error *ngIf="hour.hasError('required')">Required</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex="1 1 25%" appearance="standard">
-          <mat-label>Minute</mat-label>
-          <mat-select formControlName="minute">
-            <mat-option *ngFor="let minuteItem of minuteSelection" [value]="minuteItem.value">
-              {{minuteItem.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="minute.invalid">
-            <mat-error *ngIf="minute.hasError('required')">Required</mat-error>
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex="1 1 25%" appearance="standard">
-          <mat-label>AM/PM</mat-label>
-          <mat-select formControlName="meridiem">
-            <mat-option *ngFor="let meridiemItem of meridiemSelection" [value]="meridiemItem.value">
-              {{meridiemItem.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="meridiem.invalid">
-            <mat-error *ngIf="meridiem.hasError('required')">Required</mat-error>
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="button-area" fxLayout="row nowrap" fxLayoutAlign="end">
-      <button type="button" mat-raised-button (click)="closeDialogBox()">Cancel</button>
-      <button mat-raised-button color="accent" (click)="createAppointment()">Create</button>
-    </div>
-  </form>
-</mat-card>
+  <div class="button-area" fxLayout="row nowrap" fxLayoutAlign="end">
+    <button type="button" mat-raised-button (click)="closeDialogBox()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="createAppointment()">Create</button>
+  </div>
+</form>
