@@ -11,7 +11,7 @@ export class DialogService {
   constructor(private matDialog: MatDialog) {}
 
   openCreateAppointmentForm(): Observable<any> {
-    const dialogRef = this.matDialog.open(CreateAppointmentComponent, {width: '250px'});
+    const dialogRef = this.matDialog.open(CreateAppointmentComponent, {width: '450px'});
 
     return dialogRef.afterClosed();
   }
