@@ -54,7 +54,7 @@ export class StorageService {
   private getErrorsResponse(newAppointmentData: AppointmentData, localStorageData: AppointmentStorage): DataStoreResponse {
     return {
       isSuccessful: false,
-      errorStates: [],
+      message: 'Another appointment is already scheduled at the same time period'
     };
   }
 
