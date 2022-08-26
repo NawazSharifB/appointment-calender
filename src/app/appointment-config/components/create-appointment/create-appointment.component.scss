@@ -1,15 +1,11 @@
-.form-container {
-  width: 450px;
-  margin: auto;
-
-  .close-dialog-icon {
-    color: red;
-  }
+.close-dialog-icon {
+  color: red;
 }
 
 .create-form-title {
-  text-align: center;
   margin-top: -5px;
+  color: #ff4081;
+  text-align: center;
 }
 
 .form-control {
@@ -26,5 +22,12 @@
 
   button {
     margin: 0 10px;
+  }
+}
+
+::ng-deep .detail-container {
+  mat-dialog-container {
+    padding: 15px;
+    height: auto !important;
   }
 }
