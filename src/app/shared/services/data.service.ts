@@ -34,7 +34,7 @@ export class DataService {
   private getDateWithTimePeriod(dateTime: number, timePeriod: TimePeriodSelection): number {
     const midNightTime = 24;
     const postMeridiemValue = 12;
-    let hour = timePeriod.meridiem === Meridiem.PM ? timePeriod.hour+= postMeridiemValue : timePeriod.hour;
+    let hour = timePeriod.meridiem === Meridiem.PM ? timePeriod.hour + postMeridiemValue : timePeriod.hour;
 
     if (hour === midNightTime) {
       hour = 0;
