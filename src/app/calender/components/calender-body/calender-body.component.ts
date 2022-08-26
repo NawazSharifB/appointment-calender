@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { eachDayOfInterval, endOfMonth, endOfWeek, isSameMonth, startOfMonth, startOfWeek } from 'date-fns';
+import { weekDays } from '../../constants/week-days';
 
 @Component({
   selector: 'app-calender-body',
@@ -10,7 +11,7 @@ export class CalenderBodyComponent implements OnInit {
   @Input() date = Date.now();
   // @Input() date = new Date(2022, 8, 19).getTime();
 
-  weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekDays = weekDays;
   daysInThisMonth: any[] = [];
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class CalenderBodyComponent implements OnInit {
         : {
             date: item.getDate(),
             hello: 'world',
+            list: [2, 4],
           };
     });
     console.log(this.daysInThisMonth);
