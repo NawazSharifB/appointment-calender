@@ -19,12 +19,12 @@ export class StorageService {
       if (this.isNewAppointmentDataValid(newAppointmentData, localStorageData)) {
         const modifiedAllAppointments = this.updateAppointmentTitle(newAppointmentData, localStorageData);
         this.saveAppointmentToLocalStorage(newAppointmentData, modifiedAllAppointments);
-        observer.next({isSuccessful: true})
+        setTimeout(() => observer.next({isSuccessful: true}), 2000);
       } else {
-        observer.error(this.getErrorsResponse(newAppointmentData, localStorageData));
+        setTimeout(() => observer.error(this.getErrorsResponse(newAppointmentData, localStorageData)), 2000);
       }
 
-      observer.complete();
+      setTimeout(() => observer.complete(), 2500);
     })
   }
 
