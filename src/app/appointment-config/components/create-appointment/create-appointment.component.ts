@@ -96,9 +96,16 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
           filter(response => {
             return response.isSuccessful;
           }),
-          tap(() => this.closeDialogBox(true)),
+          tap(() => {
+            this.dataService.hasCreatedNewAppointment$.next(true);
+            this.closeDialogBox(true);
+          }),
         )
-        .subscribe(),
+        .subscribe({
+          next: value => {
+            console.log('value', value);
+          }
+        }),
       );
     }
   }

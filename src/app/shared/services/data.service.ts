@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Meridiem } from '../enums/meridiem';
 import { TimePeriodInMilliseconds } from '../enums/time-period-in-milliseconds';
 import { AppointmentData } from '../interfaces/appointment-data';
@@ -13,6 +13,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class DataService {
+  hasCreatedNewAppointment$ = new Subject<boolean>();
 
   constructor(private storageService: StorageService) {}
 

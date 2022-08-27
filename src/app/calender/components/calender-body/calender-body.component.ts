@@ -1,6 +1,6 @@
 import { EachDayOfMonthAppointment } from '../../../shared/interfaces/each-day-of-month-appointment';
 import { DataService } from '../../../shared/services/data.service';
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { eachDayOfInterval, endOfMonth, endOfWeek, isSameMonth, startOfMonth, startOfWeek } from 'date-fns';
 import { weekDays } from '../../constants/week-days';
 import { tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './calender-body.component.html',
   styleUrls: ['./calender-body.component.scss']
 })
-export class CalenderBodyComponent implements OnChanges, OnDestroy {
+export class CalenderBodyComponent implements OnChanges, OnInit, OnDestroy {
   @Input() date = Date.now();
   weekDays = weekDays;
   daysInThisMonth: any[] = [];
@@ -26,11 +26,17 @@ export class CalenderBodyComponent implements OnChanges, OnDestroy {
     }
   }
 
+  ngOnInit(): void {
+      this.subscription$.add(
+        this.dataService.hasCreatedNewAppointment$.subscribe(() => this.getMonthData()),
+      );
+  }
+
   ngOnDestroy() {
     this.subscription$.unsubscribe();
   }
 
-  getMonthData(): void {
+  private getMonthData(): void {
     this.subscription$.add(
       this.dataService.getMonthData(this.date).pipe(
         tap(appointmentData => {
@@ -45,12 +51,12 @@ export class CalenderBodyComponent implements OnChanges, OnDestroy {
     this.daysInThisMonth = eachDayOfInterval({
       start: startOfWeek(startOfMonth(this.date)),
       end: endOfWeek(endOfMonth(this.date)),
-    }).map((item: Date) => {
-      return !isSameMonth(item, this.date)
+    }).map((dayOfTheMonth: Date) => {
+      return !isSameMonth(dayOfTheMonth, this.date)
         ? undefined
         : {
-            date: item.getDate(),
-            appointmentList: this.getAppointmentListForTheDay(appointmentData, item),
+            date: dayOfTheMonth.getDate(),
+            appointmentList: this.getAppointmentListForTheDay(appointmentData, dayOfTheMonth),
           };
     });
   }
