@@ -8,6 +8,11 @@
   <div *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
     <div class="date-cell" *ngIf="dayConfig; else emptyCell">
       <p class="date">{{dayConfig.date}}</p>
+
+      <app-appointment-list
+        *ngIf="dayConfig.appointmentList.length"
+        [appointmentList]="dayConfig.appointmentList"
+      ></app-appointment-list>
     </div>
   </div>
 </div>
