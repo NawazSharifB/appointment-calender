@@ -94,17 +94,11 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
       this.subscription$.add(
         this.dataService.saveData(formValue).pipe(
           filter(response => {
-            console.log('from here');
             return response.isSuccessful;
           }),
           tap(() => this.closeDialogBox(true)),
         )
-        .subscribe({
-          next: value => {
-            console.log(value);
-          },
-        },
-        ),
+        .subscribe(),
       );
     }
   }
