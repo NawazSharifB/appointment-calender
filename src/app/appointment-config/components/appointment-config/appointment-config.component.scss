@@ -1,13 +1,55 @@
+@import '../../../../assets/styles/variables';
+
+.mat-card {
+  margin: 30px 0;
+  max-height: 100px;
+  overflow: hidden;
+}
+
 .month-selection-area {
   margin-left: 100px;
 
   .select-month-title {
-    margin: 20px 30px 0 0;
+    margin: 12px 30px 0 0;
+    color: $default-title-color;
     font-size: 16px;
     font-weight: 550;
   }
 }
 
 .create-button-area {
-  margin-top: 20px;
+  margin-top: 2px;
+
+  button {
+    background-color: $default-background-color;
+    color: white;
+
+    &:hover {
+      color: $default-title-color;
+      background-color: white;
+    }
+  }
+}
+
+:host {
+  ::ng-deep .mat-form-field-infix {
+    padding: 1px 0 8px;
+  }
+
+  ::ng-deep .mat-form-field {
+    padding: 1px 0 8px;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  ::ng-deep .mat-select-arrow-wrapper .mat-select-arrow{
+    margin-top: 8px;
+  }
+
+  ::ng-deep .mat-select-value-text {
+    color: $deep-text-color;
+    font-weight: 550;
+  }
 }
