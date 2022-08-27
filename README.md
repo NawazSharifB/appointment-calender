@@ -1,6 +1,6 @@
 # AppointmentCalender
 
-See the deployed app in- https://nsb-appointment-calender.herokuapp.com/month/8
+See the deployed app in- https://nsb-appointment-calender.herokuapp.com
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
