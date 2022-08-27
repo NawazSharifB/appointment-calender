@@ -8,6 +8,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatNativeDateModule, MAT_DATE_FORMATS} from '@angular/material/core';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
+const EXPORT_DECLARATIONS = [
+  NotFoundComponent,
+  PageNotFoundComponent,
+];
 
 const MODULES_TO_EXPORT = [
   MatDialogModule,
@@ -20,8 +26,8 @@ const MODULES_TO_EXPORT = [
 ];
 
 @NgModule({
-  declarations: [PageNotFoundComponent],
+  declarations: [EXPORT_DECLARATIONS],
   imports: [CommonModule, MODULES_TO_EXPORT],
-  exports: [PageNotFoundComponent, MODULES_TO_EXPORT],
+  exports: [EXPORT_DECLARATIONS, MODULES_TO_EXPORT],
 })
 export class SharedModule {}
