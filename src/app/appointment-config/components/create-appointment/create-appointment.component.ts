@@ -1,5 +1,5 @@
-import { Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { filter, finalize, tap } from 'rxjs/operators';
 import { DataService } from './../../../shared/services/data.service';
 import { AppointmentFormService } from './../../services/appointment-form.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -22,6 +22,9 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
   hourSelection =  hourSelection;
   minuteSelection = minuteSelection;
   meridiemSelection = meridiemSelection;
+  formSubmissionErrorMessage$ = new BehaviorSubject<string>('');
+  shouldDisabledButton$ = new BehaviorSubject<boolean>(false);
+  isContentLoading$ = new BehaviorSubject<boolean>(false);
 
   private subscription$ = new Subscription();
 
@@ -29,7 +32,7 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
     private appointmentFormService: AppointmentFormService,
     private dataService: DataService,
     private matDialogRef: MatDialogRef<CreateAppointmentComponent>,
-    ) { }
+    ) {}
 
   ngOnInit(): void {
     this.appointmentFormService.createForm();
@@ -89,6 +92,8 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
 
   createAppointment(): void {
     if (this.appointmentForm.valid) {
+      this.setFormSubmissionStates();
+
       const formValue = this.modifyFormValue(this.appointmentFormService.appointForm.value);
 
       this.subscription$.add(
@@ -100,10 +105,15 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
             this.dataService.hasCreatedNewAppointment$.next(true);
             this.closeDialogBox(true);
           }),
+          finalize(() => this.removeSubmissionState()),
         )
         .subscribe({
           next: value => {
             console.log('value', value);
+          },
+          error: error => {
+            this.formSubmissionErrorMessage$.next(error.message);
+            console.log(error);
           }
         }),
       );
@@ -114,6 +124,17 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
     formValue[AppointmentFormControls.Date] = startOfDay(formValue[AppointmentFormControls.Date]).getTime();
 
     return formValue;
+  }
+
+  private setFormSubmissionStates(): void {
+    this.formSubmissionErrorMessage$.next('');
+    this.shouldDisabledButton$.next(true);
+    this.isContentLoading$.next(true);
+  }
+
+  private removeSubmissionState(): void {
+    this.shouldDisabledButton$.next(false);
+    this.isContentLoading$.next(false);
   }
 
 }

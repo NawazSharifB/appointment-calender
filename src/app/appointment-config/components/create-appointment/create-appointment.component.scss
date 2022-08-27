@@ -43,3 +43,9 @@
     @include dialog-box-default-style();
   }
 }
+
+.error-message {
+  margin: 15px 0;
+  text-align: center;
+  color: $danger-color;
+}

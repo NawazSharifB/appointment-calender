@@ -36,7 +36,6 @@
   <mat-form-field  class="form-control" appearance="standard">
     <mat-label>Gender</mat-label>
     <mat-select formControlName="gender">
-      <mat-option>None</mat-option>
       <mat-option *ngFor="let genderItem of genderSelection" [value]="genderItem.value" required>
         {{genderItem.name}}
       </mat-option>
@@ -48,7 +47,7 @@
 
   <mat-form-field class="form-control" appearance="standard">
     <mat-label>Age</mat-label>
-    <input matInput placeholder="Maximum 200" formControlName="age" required>
+    <input matInput placeholder="Maximum 200" formControlName="age" [numericInput]="age" required>
     <mat-error *ngIf="age.invalid">
       <mat-error *ngIf="age.hasError('required')">Required</mat-error>
       <mat-error *ngIf="age.hasError('max')">Maximum can be 200</mat-error>
@@ -71,7 +70,7 @@
     </mat-error>
   </mat-form-field>
 
-  <h3 class="time-schedule-title">Schedule Time</h3>
+  <h3 class="time-schedule-title">Time Schedule</h3>
   <div formGroupName="time">
     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
       <mat-form-field fxFlex="1 1 25%" appearance="standard">
@@ -112,8 +111,19 @@
     </div>
   </div>
 
+  <p class="error-message" *ngIf="formSubmissionErrorMessage$.value">{{formSubmissionErrorMessage$.value}}</p>
+
   <div class="button-area" fxLayout="row nowrap" fxLayoutAlign="end">
     <button type="button" mat-raised-button (click)="closeDialogBox()">Cancel</button>
-    <button type="submit" mat-raised-button color="accent" (click)="createAppointment()">Create</button>
+    <button
+      type="submit"
+      mat-raised-button color="accent"
+      [disabled]="shouldDisabledButton$.value"
+      (click)="createAppointment()"
+    >
+      Create
+    </button>
   </div>
 </form>
+
+<app-content-loading *ngIf="isContentLoading$.value"></app-content-loading>
