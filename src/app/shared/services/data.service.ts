@@ -29,7 +29,12 @@ export class DataService {
   private getAppointmentData(formData: AppointmentFormData): AppointmentData {
     const fullDateTime = this.getDateWithTimePeriod(formData.date, formData.time);
     const appointmentData: AppointmentData = {
-      ...formData,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      gender: formData.gender,
+      age: formData.age,
+      date: formData.date,
+      email: formData.email,
       fullDateTime,
     };
 
