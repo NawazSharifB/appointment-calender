@@ -6,5 +6,6 @@ export interface AppointmentData {
   age: number;
   date: number;
   fullDateTime: number;
+  appointmentTitle?: string;
 }
 
