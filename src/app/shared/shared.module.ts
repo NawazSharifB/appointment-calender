@@ -7,12 +7,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatNativeDateModule, MAT_DATE_FORMATS} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const EXPORT_DECLARATIONS = [
   NotFoundComponent,
   PageNotFoundComponent,
+  ContentLoadingComponent,
 ];
 
 const MODULES_TO_EXPORT = [
@@ -23,6 +26,7 @@ const MODULES_TO_EXPORT = [
   MatSelectModule,
   MatNativeDateModule,
   MatDatepickerModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
