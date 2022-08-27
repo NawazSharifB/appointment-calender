@@ -5,22 +5,20 @@
     </div>
   </div>
 
-  <div class="calender" flexLayout="row wrap">
-    <div *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
-      <div class="date-cell" *ngIf="dayConfig; else emptyCell">
+  <div class="calender" flexLayout="row wrap" fxLayout="start stretched">
+    <mat-card class="date-cell" *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
+      <ng-container *ngIf="dayConfig">
         <p class="date">{{dayConfig.date}}</p>
 
-        <app-appointment-list
-          *ngIf="dayConfig.appointmentList.length"
-          [appointmentList]="dayConfig.appointmentList"
-        ></app-appointment-list>
-      </div>
-    </div>
+        <div>
+          <app-appointment-list
+            *ngIf="dayConfig.appointmentList.length"
+            [appointmentList]="dayConfig.appointmentList"
+          ></app-appointment-list>
+        </div>
+      </ng-container>
+    </mat-card>
   </div>
 </ng-container>
-
-<ng-template #emptyCell>
-  <div class="date-cell"></div>
-</ng-template>
 
 <app-content-loading *ngIf="isDataLoading$.value"></app-content-loading>
