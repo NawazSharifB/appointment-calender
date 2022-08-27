@@ -15,6 +15,7 @@ export class StorageService {
 
     return new Observable<DataStoreResponse>(observer => {
       if (this.isNewAppointmentDataValid(newAppointmentData, localStorageData)) {
+        this.updateAppointmentTitle(newAppointmentData, localStorageData);
         this.saveAppointmentToLocalStorage(newAppointmentData);
         observer.next({isSuccessful: true})
       } else {
@@ -23,7 +24,6 @@ export class StorageService {
 
       observer.complete();
     })
-
   }
 
   private saveAppointmentToLocalStorage(appointmentData: AppointmentData): void {
@@ -49,6 +49,32 @@ export class StorageService {
     });
 
     return !!!alreadyAppointedInSameDate.length;
+  }
+
+  private updateAppointmentTitle(newAppointmentData: AppointmentData, savedAppointmentData: AppointmentStorage): void {
+    const allAppointments: AppointmentData[] = [];
+
+    Object.entries(savedAppointmentData).forEach(([key, appointments]) => {
+      allAppointments.push(...appointments);
+    });
+
+    allAppointments.sort((a, b) => a.fullDateTime - b.fullDateTime);
+    let position = allAppointments.length;
+
+    for (const appointment of allAppointments) {
+      if (appointment.fullDateTime < newAppointmentData.fullDateTime) {
+        position = allAppointments.indexOf(appointment);
+
+        break;
+      }
+    }
+
+    allAppointments.splice(position, 0, newAppointmentData);
+
+    allAppointments.forEach((appointment, index) => {
+      appointment.appointmentTitle = `appointment ${index + 1}`;
+    })
+
   }
 
   private getErrorsResponse(newAppointmentData: AppointmentData, localStorageData: AppointmentStorage): DataStoreResponse {
