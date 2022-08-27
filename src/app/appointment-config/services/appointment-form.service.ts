@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Meridiem } from 'src/app/shared/enums/meridiem';
 import { AppointmentFormControls } from '../enums/appointment-form-controls';
+import { AvailableGenders } from '../enums/available-genders';
 
 @Injectable({
   providedIn: 'root'
@@ -57,13 +59,13 @@ export class AppointmentFormService {
       [AppointmentFormControls.FirstName]: [null, [Validators.required, Validators.maxLength(this.maxNameLength)]],
       [AppointmentFormControls.LastName]: [null, [Validators.required, Validators.maxLength(this.maxNameLength)]],
       [AppointmentFormControls.Email]: [null, [Validators.required, Validators.email]],
-      [AppointmentFormControls.Gender]: [null, [Validators.required]],
-      [AppointmentFormControls.Age]: [null, [Validators.required]],
+      [AppointmentFormControls.Gender]: [AvailableGenders.Male, [Validators.required]],
+      [AppointmentFormControls.Age]: [null, [Validators.required, Validators.max(200)]],
       [AppointmentFormControls.Date]: [null, [Validators.required]],
       [AppointmentFormControls.Time]: this.formBuilder.group({
-        [AppointmentFormControls.Hour]: [null, [Validators.required]],
-        [AppointmentFormControls.Minute]: [null, [Validators.required]],
-        [AppointmentFormControls.Meridiem]: [null, [Validators.required]],
+        [AppointmentFormControls.Hour]: [10, [Validators.required]],
+        [AppointmentFormControls.Minute]: [0, [Validators.required]],
+        [AppointmentFormControls.Meridiem]: [Meridiem.AM, [Validators.required]],
       })
     })
   }
