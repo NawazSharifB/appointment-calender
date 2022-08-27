@@ -1,17 +1,17 @@
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const EXPORT_DECLARATIONS = [
   NotFoundComponent,
