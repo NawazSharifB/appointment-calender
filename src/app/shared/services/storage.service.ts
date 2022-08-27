@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { AppointmentData } from '../interfaces/appointment-data';
 import { AppointmentStorage } from '../interfaces/appointment-storage';
 import { DataStoreResponse } from '../interfaces/data-store-response';
+import { startOfMonth, endOfMonth, eachDayOfInterval, startOfDay, endOfDay } from 'date-fns';
+import { EachDayOfMonthAppointment } from '../interfaces/each-day-of-month-appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,58 @@ export class StorageService {
 
       observer.complete();
     })
+  }
+
+  fetchAppointmentOfTheMonths(monthTime: number): Observable<EachDayOfMonthAppointment> {
+    const startOfTheMonth = startOfMonth(monthTime).getTime();
+    const endOfTheMonth = endOfMonth(monthTime).getTime();
+
+    return new Observable<EachDayOfMonthAppointment>(observer => {
+      const storedAppointments = this.getStoredAppointmentData();
+      const appointmentsOfThisMonth = this.getThisMonthsAppointments(startOfTheMonth, endOfTheMonth, storedAppointments);
+      const appointmentOfEachDayOfMonth = this.getAppointmentOfEachDayOfMonth(monthTime, appointmentsOfThisMonth);
+
+      observer.next(appointmentOfEachDayOfMonth);
+    })
+  }
+
+  private getAppointmentOfEachDayOfMonth(monthTime: number, appointmentsOfThisMonth: AppointmentData[]): EachDayOfMonthAppointment {
+    const eachDayOfTheMonth = eachDayOfInterval({
+      start: startOfMonth(monthTime),
+      end: endOfMonth(monthTime),
+    }).map(date => date.getTime());
+
+    const appointmentsOfTheDay: AppointmentStorage = {};
+
+    eachDayOfTheMonth.forEach(dayOfTheMonth => {
+      appointmentsOfTheDay[dayOfTheMonth.toString()] = [];
+
+      appointmentsOfThisMonth.forEach(appointment => {
+        const startOfTheDay = dayOfTheMonth;
+        const endOfTheDay = endOfDay(dayOfTheMonth).getTime();
+
+        if (startOfTheDay <= appointment.fullDateTime && endOfTheDay >= appointment.fullDateTime) {
+          appointmentsOfTheDay[dayOfTheMonth.toString()].push(appointment);
+        }
+      });
+
+      appointmentsOfTheDay[dayOfTheMonth.toString()].sort((a, b) => a.fullDateTime - b.fullDateTime);
+    });
+
+    return appointmentsOfTheDay;
+  }
+
+  private getThisMonthsAppointments(startTime: number, endTime: number, allAppointments: AppointmentStorage): AppointmentData[] {
+    const thisMonthsAppointments: AppointmentData[] = [];
+
+    Object.entries(allAppointments).forEach(([key, appointmentList]) => {
+      const keyInNumber = +key;
+      if (keyInNumber >= startTime && keyInNumber <= endTime ) {
+        thisMonthsAppointments.push(...appointmentList);
+      }
+    })
+
+    return thisMonthsAppointments;
   }
 
   private saveAppointmentToLocalStorage(appointmentData: AppointmentData): void {

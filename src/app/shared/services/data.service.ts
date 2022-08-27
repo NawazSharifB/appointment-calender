@@ -5,6 +5,7 @@ import { TimePeriodInMilliseconds } from '../enums/time-period-in-milliseconds';
 import { AppointmentData } from '../interfaces/appointment-data';
 import { AppointmentFormData } from '../interfaces/appointment-form-data';
 import { DataStoreResponse } from '../interfaces/data-store-response';
+import { EachDayOfMonthAppointment } from '../interfaces/each-day-of-month-appointment';
 import { TimePeriodSelection } from '../interfaces/time-period-selection';
 import { StorageService } from './storage.service';
 
@@ -19,6 +20,10 @@ export class DataService {
     const appointmentData: AppointmentData = this.getAppointmentData(formData);
 
     return this.storageService.saveData(appointmentData);
+  }
+
+  getMonthData(date: number): Observable<EachDayOfMonthAppointment> {
+    return this.storageService.fetchAppointmentOfTheMonths(date);
   }
 
   private getAppointmentData(formData: AppointmentFormData): AppointmentData {
