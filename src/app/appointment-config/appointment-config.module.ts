@@ -27,8 +27,10 @@ const MATERIAL_MODULES = [
   MatIconModule,
 ];
 
+const EXPORTED_DECLARATIONS = [AppointmentConfigComponent];
+
 @NgModule({
-  declarations: [AppointmentConfigComponent, CreateAppointmentComponent],
+  declarations: [CreateAppointmentComponent, EXPORTED_DECLARATIONS],
   imports: [CommonModule, ReactiveFormsModule, SharedModule, MATERIAL_MODULES, NgbModule],
   providers: [
     {
@@ -46,6 +48,6 @@ const MATERIAL_MODULES = [
       },
     },
   ],
-  exports: [AppointmentConfigComponent, CreateAppointmentComponent],
+  exports: [EXPORTED_DECLARATIONS],
 })
 export class AppointmentConfigModule {}
