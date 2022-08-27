@@ -14,4 +14,8 @@ export class AppointmentListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showAppointmentDetails(appointment: AppointmentData): void {
+    console.log(appointment);
+  }
+
 }

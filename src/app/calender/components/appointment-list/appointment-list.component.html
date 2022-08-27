@@ -1,5 +1,9 @@
 <div class="container">
-  <div *ngFor="let appointment of appointmentList; let index = index">
-    appointment
+  <div
+    class="appointment-item"
+    *ngFor="let appointment of appointmentList; let index = index"
+    (click)="showAppointmentDetails(appointment)"
+  >
+    {{appointment.appointmentTitle}}
   </div>
 </div>

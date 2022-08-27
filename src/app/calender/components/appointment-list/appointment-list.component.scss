@@ -1,4 +1,17 @@
 .container {
   max-height: 100px;
   overflow-y: scroll;
+  margin: 5px 10px;
+
+  .appointment-item {
+    padding: 5px;
+    color: #4949b4;
+    font-weight: 550;
+
+    &:hover {
+      cursor: pointer;
+      background: #292963;
+      color: white;
+    }
+  }
 }
