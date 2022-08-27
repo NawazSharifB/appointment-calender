@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
-import { CreateAppointmentComponent } from '../components/create-appointment/create-appointment.component';
+import { CreateAppointmentComponent } from '../../appointment-config/components/create-appointment/create-appointment.component';
 
 @Injectable({
   providedIn: 'root'
