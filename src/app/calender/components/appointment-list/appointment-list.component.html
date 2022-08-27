@@ -1,7 +1,7 @@
-<div class="container" [ngClass]="{'scroll-enable': shouldHaveScroll }">
+<div class="container" [ngClass]="{'scroll-enable': shouldHaveScroll}">
   <p
     class="appointment-item"
-    *ngFor="let appointment of appointmentList; let index = index"
+    *ngFor="let appointment of appointmentList"
     (click)="showAppointmentDetails(appointment)"
   >
     {{appointment.appointmentTitle}}

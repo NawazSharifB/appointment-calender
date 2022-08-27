@@ -1,7 +1,7 @@
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { AppointmentData } from './../../../shared/interfaces/appointment-data';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-appointment-list',
