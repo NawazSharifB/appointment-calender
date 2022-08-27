@@ -1,12 +1,13 @@
-import { RouteParam } from './../../../enums/route-param';
-import { RoutePaths } from './../../../enums/route-paths';
-import { monthSelection } from './../../constants/month-selection';
-import { DialogService } from '../../../shared/services/dialog.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { MonthSelectionValues } from '../../enums/month-values';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { getCurrentMonthString } from '../../../utils/date-utilities';
+import { RouteParam } from '../../../enums/route-param';
+import { RoutePaths } from '../../../enums/route-paths';
+import { DialogService } from '../../../shared/services/dialog.service';
+import { monthSelection } from '../../constants/month-selection';
+import { MonthSelectionValues } from '../../enums/month-values';
 
 @Component({
   selector: 'app-appointment-config',
@@ -38,7 +39,7 @@ export class AppointmentConfigComponent implements OnInit, OnDestroy {
   }
 
   private createSelectionMonthControl(currentRouteMonth: string | null): void {
-    let initialMonthControlValue: string = MonthSelectionValues.January;
+    let initialMonthControlValue: string = getCurrentMonthString();
     const currentRouteNumber = currentRouteMonth ? +currentRouteMonth : -1;
 
     if (!isNaN(currentRouteNumber) && currentRouteNumber >=  +MonthSelectionValues.January && currentRouteNumber <=  +MonthSelectionValues.December) {
