@@ -10,7 +10,7 @@ import { TimePeriodSelection } from '../interfaces/time-period-selection';
 import { StorageService } from './storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
 

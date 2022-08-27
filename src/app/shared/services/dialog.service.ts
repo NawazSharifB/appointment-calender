@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { CreateAppointmentComponent } from '../../appointment-config/components/create-appointment/create-appointment.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DialogService {
   private readonly dialogBoxWidth = '450px';
