@@ -34,6 +34,10 @@
   margin-top: 30px;
 }
 
+.no-data-placeholder {
+  color: #aaaaaa;
+}
+
 ::ng-deep .detail-container {
   .mat-dialog-container {
     @include dialog-box-default-style();

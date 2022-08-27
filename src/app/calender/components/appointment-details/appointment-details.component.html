@@ -7,23 +7,25 @@
     <div class="data"fxFlex="1 1 auto">{{appointmentData.firstName}} {{appointmentData.lastName}}</div>
   </div>
 
-  <div class="double-info" fxLayout="row nowrap">
+  <div fxLayout="row nowrap">
     <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
       <div class="title" fxFlex="1 1 80px">Age</div>
       <div fxFlex="1 1 20px">:</div>
-      <div class="data"fxFlex="1 1 auto">{{appointmentData.age}} years</div>
+      <div class="data"fxFlex="1 1 auto">
+        <ng-container *ngIf="appointmentData.age; else notProvided">{{appointmentData.age}} years</ng-container>
+      </div>
     </div>
 
     <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
       <div class="title" fxFlex="1 1 80px">Gender</div>
       <div fxFlex="1 1 20px">:</div>
-      <div class="data"fxFlex="1 1 auto">{{appointmentData.gender}}</div>
+      <div class="data"fxFlex="1 1 auto">{{appointmentData.gender | uppercase}}</div>
     </div>
   </div>
 
   <h3 class="info-title">Schedule</h3>
 
-  <div class="double-info" fxLayout="row nowrap">
+  <div fxLayout="row nowrap">
     <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
       <div class="title" fxFlex="1 1 80px">Date</div>
       <div class="color" fxFlex="1 1 20px">:</div>
@@ -49,3 +51,7 @@
     <button mat-raised-button (click)="closeDialog()" color="accent">Close</button>
   </div>
 </div>
+
+<ng-template #notProvided>
+  <span class="no-data-placeholder">N/A</span>
+</ng-template>
