@@ -1,6 +1,6 @@
 import { EachDayOfMonthAppointment } from '../../../shared/interfaces/each-day-of-month-appointment';
 import { DataService } from '../../../shared/services/data.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { eachDayOfInterval, endOfMonth, endOfWeek, isSameMonth, startOfMonth, startOfWeek } from 'date-fns';
 import { weekDays } from '../../constants/week-days';
 import { tap } from 'rxjs/operators';
@@ -11,18 +11,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './calender-body.component.html',
   styleUrls: ['./calender-body.component.scss']
 })
-export class CalenderBodyComponent implements OnInit, OnDestroy {
+export class CalenderBodyComponent implements OnChanges, OnDestroy {
   @Input() date = Date.now();
+  weekDays = weekDays;
+  daysInThisMonth: any[] = [];
 
   private subscription$ = new Subscription();
 
   constructor(private dataService: DataService) {}
 
-  weekDays = weekDays;
-  daysInThisMonth: any[] = [];
-
-  ngOnInit(): void {
-    this.getMonthData();
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('date' in changes) {
+      this.getMonthData();
+    }
   }
 
   ngOnDestroy() {
@@ -30,12 +31,10 @@ export class CalenderBodyComponent implements OnInit, OnDestroy {
   }
 
   getMonthData(): void {
-    const date = new Date(2022, 7, 20);
-
     this.subscription$.add(
-      this.dataService.getMonthData(date.getTime()).pipe(
+      this.dataService.getMonthData(this.date).pipe(
         tap(appointmentData => {
-          this.setDaysOfMonth(appointmentData, date.getTime());
+          this.setDaysOfMonth(appointmentData, this.date);
         })
       )
       .subscribe(),
@@ -51,7 +50,6 @@ export class CalenderBodyComponent implements OnInit, OnDestroy {
         ? undefined
         : {
             date: item.getDate(),
-            hello: 'world',
             appointmentList: this.getAppointmentListForTheDay(appointmentData, item),
           };
     });
