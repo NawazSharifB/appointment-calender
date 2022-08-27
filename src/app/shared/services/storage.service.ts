@@ -17,8 +17,8 @@ export class StorageService {
 
     return new Observable<DataStoreResponse>(observer => {
       if (this.isNewAppointmentDataValid(newAppointmentData, localStorageData)) {
-        this.updateAppointmentTitle(newAppointmentData, localStorageData);
-        this.saveAppointmentToLocalStorage(newAppointmentData);
+        const modifiedAllAppointments = this.updateAppointmentTitle(newAppointmentData, localStorageData);
+        this.saveAppointmentToLocalStorage(newAppointmentData, modifiedAllAppointments);
         observer.next({isSuccessful: true})
       } else {
         observer.error(this.getErrorsResponse(newAppointmentData, localStorageData));
@@ -80,9 +80,7 @@ export class StorageService {
     return thisMonthsAppointments;
   }
 
-  private saveAppointmentToLocalStorage(appointmentData: AppointmentData): void {
-    const storedData = this.getStoredAppointmentData();
-
+  private saveAppointmentToLocalStorage(appointmentData: AppointmentData, storedData: AppointmentStorage): void {
     storedData[appointmentData.date] = [...(storedData[appointmentData.date] || []), appointmentData];
     localStorage.setItem(this.APPOINTMENTS_STORAGE_KEY, this.getStringifiedData(storedData));
   }
@@ -105,30 +103,20 @@ export class StorageService {
     return !!!alreadyAppointedInSameDate.length;
   }
 
-  private updateAppointmentTitle(newAppointmentData: AppointmentData, savedAppointmentData: AppointmentStorage): void {
-    const allAppointments: AppointmentData[] = [];
+  private updateAppointmentTitle(newAppointmentData: AppointmentData, savedAppointmentData: AppointmentStorage): AppointmentStorage {
+    const allAppointments: AppointmentData[] = [newAppointmentData];
 
     Object.entries(savedAppointmentData).forEach(([key, appointments]) => {
       allAppointments.push(...appointments);
     });
 
     allAppointments.sort((a, b) => a.fullDateTime - b.fullDateTime);
-    let position = allAppointments.length;
-
-    for (const appointment of allAppointments) {
-      if (appointment.fullDateTime < newAppointmentData.fullDateTime) {
-        position = allAppointments.indexOf(appointment);
-
-        break;
-      }
-    }
-
-    allAppointments.splice(position, 0, newAppointmentData);
 
     allAppointments.forEach((appointment, index) => {
-      appointment.appointmentTitle = `appointment ${index + 1}`;
+      appointment.appointmentTitle = `Appointment ${index + 1}`;
     })
 
+    return savedAppointmentData;
   }
 
   private getErrorsResponse(newAppointmentData: AppointmentData, localStorageData: AppointmentStorage): DataStoreResponse {
