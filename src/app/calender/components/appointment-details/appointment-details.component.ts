@@ -8,9 +8,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./appointment-details.component.scss']
 })
 export class AppointmentDetailsComponent{
-  @Input() appointmentData!: AppointmentData;
-
-  // constructor(@Inject(MAT_DIALOG_DATA) public appointmentData: AppointmentData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public appointmentData: AppointmentData) {
+    console.log(appointmentData);
+  }
 
   closeDialog(): void {
 
