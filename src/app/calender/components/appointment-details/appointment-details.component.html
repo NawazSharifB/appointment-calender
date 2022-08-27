@@ -1,0 +1,51 @@
+<div class="container">
+    <h2 class="appointment-title">{{appointmentData.appointmentTitle | uppercase}}</h2>
+
+  <div class="info-set" fxLayout="row nowrap">
+    <div class="title" fxFlex="1 1 80px">Full Name</div>
+    <div fxFlex="1 1 20px">:</div>
+    <div class="data"fxFlex="1 1 auto">{{appointmentData.firstName}} {{appointmentData.lastName}}</div>
+  </div>
+
+  <div class="double-info" fxLayout="row nowrap">
+    <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
+      <div class="title" fxFlex="1 1 80px">Age</div>
+      <div fxFlex="1 1 20px">:</div>
+      <div class="data"fxFlex="1 1 auto">{{appointmentData.age}} years</div>
+    </div>
+
+    <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
+      <div class="title" fxFlex="1 1 80px">Gender</div>
+      <div fxFlex="1 1 20px">:</div>
+      <div class="data"fxFlex="1 1 auto">{{appointmentData.gender}}</div>
+    </div>
+  </div>
+
+  <h3 class="info-title">Schedule</h3>
+
+  <div class="double-info" fxLayout="row nowrap">
+    <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
+      <div class="title" fxFlex="1 1 80px">Date</div>
+      <div class="color" fxFlex="1 1 20px">:</div>
+      <div class="data"fxFlex="1 1 auto">{{appointmentData.fullDateTime | date:'dd MMM yyy'}}</div>
+    </div>
+
+    <div class="info-set" fxFlex="1 1 50%" fxLayout="row nowrap">
+      <div class="title" fxFlex="1 1 80px">Time</div>
+      <div class="color" fxFlex="1 1 20px">:</div>
+      <div class="data"fxFlex="1 1 auto">{{appointmentData.fullDateTime | date:'h:mm a'}}</div>
+    </div>
+  </div>
+
+  <h3 class="info-title">Contact Info</h3>
+
+  <div class="info-set" fxLayout="row nowrap">
+    <div class="title" fxFlex="1 1 80px">Email</div>
+    <div class="color" fxFlex="1 1 20px">:</div>
+    <div class="data"fxFlex="1 1 auto">{{appointmentData.email}}</div>
+  </div>
+
+  <div class="action-area" fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button (click)="closeDialog()" color="accent">Close</button>
+  </div>
+</div>
