@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { AppointmentData } from '../interfaces/appointment-data';
 import { AppointmentStorage } from '../interfaces/appointment-storage';
 import { DataStoreResponse } from '../interfaces/data-store-response';
@@ -38,7 +38,10 @@ export class StorageService {
       const appointmentsOfThisMonth = this.getThisMonthsAppointments(startOfTheMonth, endOfTheMonth, storedAppointments);
       const appointmentOfEachDayOfMonth = this.getAppointmentOfEachDayOfMonth(monthTime, appointmentsOfThisMonth);
 
-      observer.next(appointmentOfEachDayOfMonth);
+      setTimeout(() => {
+        observer.next(appointmentOfEachDayOfMonth);
+        observer.complete();
+      }, 2500);
     })
   }
 

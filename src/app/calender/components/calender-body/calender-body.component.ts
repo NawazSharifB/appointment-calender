@@ -3,8 +3,8 @@ import { DataService } from '../../../shared/services/data.service';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { eachDayOfInterval, endOfMonth, endOfWeek, isSameMonth, startOfMonth, startOfWeek } from 'date-fns';
 import { weekDays } from '../../constants/week-days';
-import { tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calender-body',
@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class CalenderBodyComponent implements OnChanges, OnInit, OnDestroy {
   @Input() date = Date.now();
   weekDays = weekDays;
+  isDataLoading$ = new BehaviorSubject<boolean>(false);
   daysInThisMonth: any[] = [];
 
   private subscription$ = new Subscription();
@@ -37,11 +38,13 @@ export class CalenderBodyComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   private getMonthData(): void {
+    this.isDataLoading$.next(true);
     this.subscription$.add(
       this.dataService.getMonthData(this.date).pipe(
         tap(appointmentData => {
           this.setDaysOfMonth(appointmentData, this.date);
-        })
+        }),
+        finalize(() => this.isDataLoading$.next(false)),
       )
       .subscribe(),
     );

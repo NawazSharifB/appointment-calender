@@ -1,22 +1,26 @@
-<div class="calender weekDays" flexLayout="row wrap">
-  <div class="days" *ngFor="let days of weekDays" fxFlex="1 1 calc(100% / 7)">
-    <p class="text">{{days}}</p>
-  </div>
-</div>
-
-<div class="calender" flexLayout="row wrap">
-  <div *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
-    <div class="date-cell" *ngIf="dayConfig; else emptyCell">
-      <p class="date">{{dayConfig.date}}</p>
-
-      <app-appointment-list
-        *ngIf="dayConfig.appointmentList.length"
-        [appointmentList]="dayConfig.appointmentList"
-      ></app-appointment-list>
+<ng-container *ngIf="daysInThisMonth.length">
+  <div class="calender weekDays" flexLayout="row wrap">
+    <div class="days" *ngFor="let days of weekDays" fxFlex="1 1 calc(100% / 7)">
+      <p class="text">{{days}}</p>
     </div>
   </div>
-</div>
+
+  <div class="calender" flexLayout="row wrap">
+    <div *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
+      <div class="date-cell" *ngIf="dayConfig; else emptyCell">
+        <p class="date">{{dayConfig.date}}</p>
+
+        <app-appointment-list
+          *ngIf="dayConfig.appointmentList.length"
+          [appointmentList]="dayConfig.appointmentList"
+        ></app-appointment-list>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
 <ng-template #emptyCell>
   <div class="date-cell"></div>
 </ng-template>
+
+<app-content-loading *ngIf="isDataLoading$.value"></app-content-loading>
