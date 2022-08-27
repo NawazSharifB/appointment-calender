@@ -47,9 +47,8 @@
 
   <mat-form-field class="form-control" appearance="standard">
     <mat-label>Age</mat-label>
-    <input matInput placeholder="Maximum 200" formControlName="age" [numericInput]="age" required>
+    <input matInput placeholder="Maximum 200" formControlName="age" [numericInput]="age">
     <mat-error *ngIf="age.invalid">
-      <mat-error *ngIf="age.hasError('required')">Required</mat-error>
       <mat-error *ngIf="age.hasError('max')">Maximum can be 200</mat-error>
     </mat-error>
   </mat-form-field>

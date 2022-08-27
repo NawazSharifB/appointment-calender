@@ -60,7 +60,7 @@ export class AppointmentFormService {
       [AppointmentFormControls.LastName]: [null, [Validators.required, Validators.maxLength(this.maxNameLength)]],
       [AppointmentFormControls.Email]: [null, [Validators.required, Validators.email]],
       [AppointmentFormControls.Gender]: [AvailableGenders.Male, [Validators.required]],
-      [AppointmentFormControls.Age]: [null, [Validators.required, Validators.max(200)]],
+      [AppointmentFormControls.Age]: [null, [Validators.max(200)]],
       [AppointmentFormControls.Date]: [null, [Validators.required]],
       [AppointmentFormControls.Time]: this.formBuilder.group({
         [AppointmentFormControls.Hour]: [10, [Validators.required]],
