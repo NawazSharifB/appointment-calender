@@ -49,7 +49,8 @@
     margin-top: 8px;
   }
 
-  ::ng-deep .mat-select-value-text {
+  ::ng-deep .mat-select-value {
+    height: 18px;
     color: $deep-text-color;
     font-weight: 550;
   }
