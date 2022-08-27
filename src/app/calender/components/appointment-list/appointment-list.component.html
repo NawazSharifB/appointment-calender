@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'scroll-enable': shouldHaveScroll }">
   <p
     class="appointment-item"
     *ngFor="let appointment of appointmentList; let index = index"

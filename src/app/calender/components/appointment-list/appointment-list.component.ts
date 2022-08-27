@@ -11,12 +11,17 @@ import { Subscription } from 'rxjs';
 export class AppointmentListComponent implements OnDestroy {
   @Input() appointmentList: AppointmentData[] = [];
 
+  private maxAllowedItemInSingleView = 2;
   private subscription$ = new Subscription();
 
   constructor(private dialogService: DialogService) {}
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
+  }
+
+  get shouldHaveScroll(): boolean {
+    return this.appointmentList.length > this.maxAllowedItemInSingleView;
   }
 
   showAppointmentDetails(appointment: AppointmentData): void {

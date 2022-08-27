@@ -2,8 +2,11 @@
 
 .container {
   height: 70px;
-  overflow-y: scroll;
   margin: 5px 10px;
+
+  &.scroll-enable {
+    overflow-y: scroll;
+  }
 
   .appointment-item {
     margin-bottom: 2px;
@@ -15,6 +18,7 @@
 
     &:hover {
       background: $default-background-color;
+      border-radius: 3px;
       cursor: pointer;
       color: white;
     }
