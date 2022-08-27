@@ -1,21 +1,25 @@
+import { DialogService } from '../../../shared/services/dialog.service';
 import { AppointmentData } from './../../../shared/interfaces/appointment-data';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.scss']
 })
-export class AppointmentListComponent implements OnInit {
+export class AppointmentListComponent implements OnDestroy {
   @Input() appointmentList: AppointmentData[] = [];
 
-  constructor() { }
+  private subscription$ = new Subscription();
 
-  ngOnInit(): void {
+  constructor(private dialogService: DialogService) {}
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 
   showAppointmentDetails(appointment: AppointmentData): void {
-    console.log(appointment);
+    this.subscription$.add(this.dialogService.openAppointmentInfoDialog(appointment).subscribe());
   }
-
 }
