@@ -108,12 +108,8 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
           finalize(() => this.removeSubmissionState()),
         )
         .subscribe({
-          next: value => {
-            console.log('value', value);
-          },
           error: error => {
             this.formSubmissionErrorMessage$.next(error.message);
-            console.log(error);
           }
         }),
       );
