@@ -5,6 +5,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { getYear, startOfToday } from 'date-fns';
+import { MonthSelectionValues } from '../appointment-config/enums/month-values';
 
 @Component({
   selector: 'app-calender',
@@ -31,8 +32,8 @@ export class CalenderComponent implements OnInit, OnDestroy {
         }),
         filter(param => {
           const numberOfMonth = +<string>param.get(RouteParam.NumberOfTheMonth);
-          const minMonthValue = 1;
-          const maxMonthValue = 12;
+          const minMonthValue = +MonthSelectionValues.January;
+          const maxMonthValue = +MonthSelectionValues.December;
 
           if (!isNaN(numberOfMonth) && numberOfMonth >= minMonthValue && numberOfMonth <= maxMonthValue) {
             return true;
