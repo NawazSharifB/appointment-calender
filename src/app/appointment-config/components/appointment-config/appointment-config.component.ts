@@ -1,4 +1,4 @@
-import { DialogService } from '../../services/dialog.service';
+import { DialogService } from '../../../shared/services/dialog.service';
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
