@@ -1,16 +1,21 @@
+@import '../../../../assets/styles/variables';
+
 .container {
-  max-height: 100px;
+  height: 70px;
   overflow-y: scroll;
   margin: 5px 10px;
 
   .appointment-item {
+    margin-bottom: 2px;
     padding: 5px;
     color: #4949b4;
+    font-size: small;
     font-weight: 550;
+    text-align: center;
 
     &:hover {
+      background: $default-background-color;
       cursor: pointer;
-      background: #292963;
       color: white;
     }
   }
