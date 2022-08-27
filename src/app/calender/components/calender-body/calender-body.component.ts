@@ -1,10 +1,10 @@
-import { EachDayOfMonthAppointment } from '../../../shared/interfaces/each-day-of-month-appointment';
-import { DataService } from '../../../shared/services/data.service';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { eachDayOfInterval, endOfMonth, endOfWeek, isSameMonth, startOfMonth, startOfWeek } from 'date-fns';
-import { weekDays } from '../../constants/week-days';
-import { finalize, tap } from 'rxjs/operators';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
+import { EachDayOfMonthAppointment } from '../../../shared/interfaces/each-day-of-month-appointment';
+import { DataService } from '../../../shared/services/data.service';
+import { weekDays } from '../../constants/week-days';
 
 @Component({
   selector: 'app-calender-body',
@@ -39,10 +39,11 @@ export class CalenderBodyComponent implements OnChanges, OnInit, OnDestroy {
 
   private getMonthData(): void {
     this.isDataLoading$.next(true);
+
     this.subscription$.add(
       this.dataService.getMonthData(this.date).pipe(
         tap(appointmentData => {
-          this.setDaysOfMonth(appointmentData, this.date);
+          this.setDaysOfMonth(appointmentData);
         }),
         finalize(() => this.isDataLoading$.next(false)),
       )
@@ -50,7 +51,7 @@ export class CalenderBodyComponent implements OnChanges, OnInit, OnDestroy {
     );
   }
 
-  private setDaysOfMonth(appointmentData: EachDayOfMonthAppointment = {}, date = this.date): void {
+  private setDaysOfMonth(appointmentData: EachDayOfMonthAppointment = {}): void {
     this.daysInThisMonth = eachDayOfInterval({
       start: startOfWeek(startOfMonth(this.date)),
       end: endOfWeek(endOfMonth(this.date)),

@@ -10,12 +10,10 @@
       <ng-container *ngIf="dayConfig">
         <p class="date">{{dayConfig.date}}</p>
 
-        <div>
-          <app-appointment-list
-            *ngIf="dayConfig.appointmentList.length"
-            [appointmentList]="dayConfig.appointmentList"
-          ></app-appointment-list>
-        </div>
+        <app-appointment-list
+          *ngIf="dayConfig.appointmentList.length"
+          [appointmentList]="dayConfig.appointmentList"
+        ></app-appointment-list>
       </ng-container>
     </mat-card>
   </div>
