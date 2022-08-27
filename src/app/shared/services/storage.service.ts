@@ -5,6 +5,7 @@ import { AppointmentStorage } from '../interfaces/appointment-storage';
 import { DataStoreResponse } from '../interfaces/data-store-response';
 import { startOfMonth, endOfMonth, eachDayOfInterval, startOfDay, endOfDay } from 'date-fns';
 import { EachDayOfMonthAppointment } from '../interfaces/each-day-of-month-appointment';
+import { ServerMessages } from '../constants/server-messages';
 
 @Injectable({
   providedIn: 'root'
@@ -122,7 +123,7 @@ export class StorageService {
   private getErrorsResponse(newAppointmentData: AppointmentData, localStorageData: AppointmentStorage): DataStoreResponse {
     return {
       isSuccessful: false,
-      message: 'Another appointment is already scheduled at the same time period'
+      message: ServerMessages.AlreadyHasAnAppointment
     };
   }
 

@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ContentLoadingComponent } from './components/content-loading/content-loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const EXPORT_DECLARATIONS = [
   NotFoundComponent,
@@ -27,6 +28,7 @@ const MODULES_TO_EXPORT = [
   MatNativeDateModule,
   MatDatepickerModule,
   MatProgressSpinnerModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
