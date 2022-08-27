@@ -48,7 +48,7 @@ export class DataService {
     let hour = timePeriod.meridiem === Meridiem.PM ? timePeriod.hour + postMeridiemValue : timePeriod.hour;
 
     if (hour === midNightTime) {
-      hour = 0;
+      hour = 12;
     }
 
     return dateTime + (hour * TimePeriodInMilliseconds.Hour) + (timePeriod.minute * TimePeriodInMilliseconds.Minute);
