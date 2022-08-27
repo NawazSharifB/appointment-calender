@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AppointmentFormService } from './appointment-form.service';
 
 describe('AppointmentFormService', () => {

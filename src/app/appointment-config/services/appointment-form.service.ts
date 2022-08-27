@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Meridiem } from 'src/app/shared/enums/meridiem';
+import { Meridiem } from '../../shared/enums/meridiem';
 import { AppointmentFormControls } from '../enums/appointment-form-controls';
 import { AvailableGenders } from '../enums/available-genders';
 
