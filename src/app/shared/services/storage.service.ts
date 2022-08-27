@@ -41,7 +41,7 @@ export class StorageService {
       setTimeout(() => {
         observer.next(appointmentOfEachDayOfMonth);
         observer.complete();
-      }, 2500);
+      }, 1500);
     })
   }
 
