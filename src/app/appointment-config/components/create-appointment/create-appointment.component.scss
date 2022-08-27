@@ -1,11 +1,24 @@
-.close-dialog-icon {
-  color: red;
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
+
+.create-appointment-title-area {
+  padding: 10px 0;
+  background-color: $dialog-box-header-background;
+
+  .create-form-title {
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding-top: 3px;
+  }
+
+  .close-dialog-icon {
+    color: white;
+  }
 }
 
-.create-form-title {
-  margin-top: -5px;
-  color: #ff4081;
-  text-align: center;
+.form-container {
+  padding: $dialog-wrapper-padding;
 }
 
 .form-control {
@@ -26,8 +39,7 @@
 }
 
 ::ng-deep .detail-container {
-  mat-dialog-container {
-    padding: 15px;
-    height: auto !important;
+  .mat-dialog-container {
+    @include dialog-box-default-style();
   }
 }

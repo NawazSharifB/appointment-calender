@@ -1,13 +1,11 @@
-<div fxLayout="row">
-  <div fxFlex="1 1 auto"></div>
+<div class="create-appointment-title-area" fxLayout="row">
+  <h2 class="create-form-title" fxFlex="1 1 auto">Create form</h2>
   <button mat-icon-button class="close-dialog-icon" (click)="closeDialogBox()">
     <mat-icon>close</mat-icon>
   </button>
 </div>
 
-<h2 class="create-form-title">Create form</h2>
-
-<form [formGroup]="appointmentForm">
+<form class="form-container" [formGroup]="appointmentForm">
   <mat-form-field class="form-control" appearance="standard">
     <mat-label>First Name</mat-label>
     <input matInput placeholder="Maximum 40 Characters" formControlName="firstName" required>

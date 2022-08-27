@@ -1,6 +1,9 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
+
 .appointment-title {
   padding: 10px 0;
-  background-color: #ff256e;
+  background-color: $dialog-box-header-background;
   color: white;
   text-align: center;
 }
@@ -33,7 +36,6 @@
 
 ::ng-deep .detail-container {
   .mat-dialog-container {
-    padding: 0;
-    height: auto !important;
+    @include dialog-box-default-style();
   }
 }
