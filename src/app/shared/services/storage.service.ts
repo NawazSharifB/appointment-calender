@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { observable, Observable } from 'rxjs';
+import { eachDayOfInterval, endOfDay, endOfMonth, startOfMonth } from 'date-fns';
+import { Observable } from 'rxjs';
+import { ServerMessages } from '../constants/server-messages';
 import { AppointmentData } from '../interfaces/appointment-data';
 import { AppointmentStorage } from '../interfaces/appointment-storage';
 import { DataStoreResponse } from '../interfaces/data-store-response';
-import { startOfMonth, endOfMonth, eachDayOfInterval, startOfDay, endOfDay } from 'date-fns';
 import { EachDayOfMonthAppointment } from '../interfaces/each-day-of-month-appointment';
-import { ServerMessages } from '../constants/server-messages';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +14,23 @@ export class StorageService {
   private readonly APPOINTMENTS_STORAGE_KEY = 'appointmentData';
 
   saveData(newAppointmentData: AppointmentData): Observable<DataStoreResponse> {
-    const localStorageData: AppointmentStorage  = this.getStoredAppointmentData();
-
     return new Observable<DataStoreResponse>(observer => {
+      const localStorageData: AppointmentStorage  = this.getStoredAppointmentData();
+
       if (this.isNewAppointmentDataValid(newAppointmentData, localStorageData)) {
         const modifiedAllAppointments = this.updateAppointmentTitle(newAppointmentData, localStorageData);
-        this.saveAppointmentToLocalStorage(newAppointmentData, modifiedAllAppointments);
-        setTimeout(() => observer.next({isSuccessful: true}), 2000);
-      } else {
-        setTimeout(() => observer.error(this.getErrorsResponse(newAppointmentData, localStorageData)), 2000);
-      }
 
-      setTimeout(() => observer.complete(), 2500);
+        this.saveAppointmentToLocalStorage(newAppointmentData, modifiedAllAppointments);
+        setTimeout(() => {
+          observer.next({isSuccessful: true});
+          observer.complete();
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          observer.error(this.getErrorsResponse());
+          observer.complete();
+        }, 2000);
+      }
     })
   }
 
@@ -45,7 +50,10 @@ export class StorageService {
     })
   }
 
-  private getAppointmentOfEachDayOfMonth(monthTime: number, appointmentsOfThisMonth: AppointmentData[]): EachDayOfMonthAppointment {
+  private getAppointmentOfEachDayOfMonth(
+    monthTime: number,
+    appointmentsOfThisMonth: AppointmentData[],
+  ): EachDayOfMonthAppointment {
     const eachDayOfTheMonth = eachDayOfInterval({
       start: startOfMonth(monthTime),
       end: endOfMonth(monthTime),
@@ -71,7 +79,11 @@ export class StorageService {
     return appointmentsOfTheDay;
   }
 
-  private getThisMonthsAppointments(startTime: number, endTime: number, allAppointments: AppointmentStorage): AppointmentData[] {
+  private getThisMonthsAppointments(
+    startTime: number,
+    endTime: number,
+    allAppointments: AppointmentStorage,
+  ): AppointmentData[] {
     const thisMonthsAppointments: AppointmentData[] = [];
 
     Object.entries(allAppointments).forEach(([key, appointmentList]) => {
@@ -85,7 +97,9 @@ export class StorageService {
   }
 
   private saveAppointmentToLocalStorage(appointmentData: AppointmentData, storedData: AppointmentStorage): void {
-    storedData[appointmentData.date] = [...(storedData[appointmentData.date] || []), appointmentData];
+    const appointmentDateKey = appointmentData.date.toString();
+
+    storedData[appointmentDateKey] = [...(storedData[appointmentDateKey] || []), appointmentData];
     localStorage.setItem(this.APPOINTMENTS_STORAGE_KEY, this.getStringifiedData(storedData));
   }
 
@@ -96,7 +110,7 @@ export class StorageService {
   }
 
   private isNewAppointmentDataValid(newAppointmentData: AppointmentData, savedAppointmentData: AppointmentStorage): boolean {
-    const alreadyAppointedInSameDate = Object.entries(savedAppointmentData).filter(([key, appointments]) => {
+    const appointedInSameDateTime = Object.entries(savedAppointmentData).filter(([key, appointments]) => {
       if (key === newAppointmentData.date.toString()) {
         return !!appointments.filter(appointment => appointment.fullDateTime === newAppointmentData.fullDateTime).length;
       }
@@ -104,13 +118,16 @@ export class StorageService {
       return false;
     });
 
-    return !!!alreadyAppointedInSameDate.length;
+    return !!!appointedInSameDateTime.length;
   }
 
-  private updateAppointmentTitle(newAppointmentData: AppointmentData, savedAppointmentData: AppointmentStorage): AppointmentStorage {
+  private updateAppointmentTitle(
+    newAppointmentData: AppointmentData,
+    savedAppointmentData: AppointmentStorage,
+  ): AppointmentStorage {
     const allAppointments: AppointmentData[] = [newAppointmentData];
 
-    Object.entries(savedAppointmentData).forEach(([key, appointments]) => {
+    Object.values(savedAppointmentData).forEach(appointments => {
       allAppointments.push(...appointments);
     });
 
@@ -123,7 +140,7 @@ export class StorageService {
     return savedAppointmentData;
   }
 
-  private getErrorsResponse(newAppointmentData: AppointmentData, localStorageData: AppointmentStorage): DataStoreResponse {
+  private getErrorsResponse(): DataStoreResponse {
     return {
       isSuccessful: false,
       message: ServerMessages.AlreadyHasAnAppointment
