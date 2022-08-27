@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import { NumericInputDirective } from './directives/numeric-input.directive';
 
 const MATERIAL_MODULES = [
   MatCardModule,
@@ -22,7 +23,7 @@ const MATERIAL_MODULES = [
 const EXPORTED_DECLARATIONS = [AppointmentConfigComponent];
 
 @NgModule({
-  declarations: [CreateAppointmentComponent, EXPORTED_DECLARATIONS],
+  declarations: [CreateAppointmentComponent, NumericInputDirective, EXPORTED_DECLARATIONS],
   imports: [CommonModule, SharedModule, MATERIAL_MODULES],
   exports: [EXPORTED_DECLARATIONS],
 })
