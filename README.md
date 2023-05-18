@@ -2,7 +2,8 @@
 
 This project is updated to [Angular CLI](https://github.com/angular/angular-cli) version 15.2.9.
 <br>
-Updated at-  March 18th, 2023
+<br>
+<strong>Updated at-</strong>  March 18th, 2023
 
 ## Development server
 
