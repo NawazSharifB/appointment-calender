@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { getCurrentMonthString } from '../../../utils/date-utilities';
@@ -16,7 +16,7 @@ import { MonthSelectionValues } from '../../enums/month-values';
 })
 export class AppointmentConfigComponent implements OnInit, OnDestroy {
   monthSelection = monthSelection;
-  monthSelectionControl!: FormControl;
+  monthSelectionControl!: UntypedFormControl;
 
   private subscription$ = new Subscription();
 
@@ -46,7 +46,7 @@ export class AppointmentConfigComponent implements OnInit, OnDestroy {
       initialMonthControlValue = currentRouteNumber.toString();
     }
 
-    this.monthSelectionControl = new FormControl(initialMonthControlValue);
+    this.monthSelectionControl = new UntypedFormControl(initialMonthControlValue);
   }
 
   private changeRouteOnMonthChange() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Meridiem } from '../../shared/enums/meridiem';
 import { AppointmentFormControls } from '../enums/appointment-form-controls';
 import { AvailableGenders } from '../enums/available-genders';
@@ -8,11 +8,11 @@ import { AvailableGenders } from '../enums/available-genders';
   providedIn: 'root'
 })
 export class AppointmentFormService {
-  appointForm!: FormGroup;
+  appointForm!: UntypedFormGroup;
 
   private maxNameLength = 40;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   get firstName(): AbstractControl {
     return <AbstractControl>this.appointForm.get(AppointmentFormControls.FirstName);
@@ -38,8 +38,8 @@ export class AppointmentFormService {
     return <AbstractControl>this.appointForm.get(AppointmentFormControls.Date);
   }
 
-  get time(): FormGroup {
-    return <FormGroup>this.appointForm.get(AppointmentFormControls.Time);
+  get time(): UntypedFormGroup {
+    return <UntypedFormGroup>this.appointForm.get(AppointmentFormControls.Time);
   }
 
   get hour(): AbstractControl {

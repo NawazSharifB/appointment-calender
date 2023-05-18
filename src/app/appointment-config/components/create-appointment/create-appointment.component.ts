@@ -3,7 +3,7 @@ import { filter, finalize, tap } from 'rxjs/operators';
 import { DataService } from './../../../shared/services/data.service';
 import { AppointmentFormService } from './../../services/appointment-form.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { minuteSelection } from '../../constants/minute-selection';
 import { hourSelection } from '../../constants/hour-selection';
@@ -42,7 +42,7 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
     this.subscription$.unsubscribe();
   }
 
-  get appointmentForm(): FormGroup {
+  get appointmentForm(): UntypedFormGroup {
     return this.appointmentFormService.appointForm;
   }
 
@@ -70,7 +70,7 @@ export class CreateAppointmentComponent implements OnInit, OnDestroy {
     return this.appointmentFormService.date;
   }
 
-  get time(): FormGroup {
+  get time(): UntypedFormGroup {
     return this.appointmentFormService.time;
   }
 
