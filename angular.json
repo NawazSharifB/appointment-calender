@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "appointment-calender"
+  "cli": {
+    "analytics": "a032022b-79df-46bb-a903-ef5b41af1414"
+  }
 }

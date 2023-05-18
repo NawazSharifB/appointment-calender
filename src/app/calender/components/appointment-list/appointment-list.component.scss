@@ -1,0 +1,26 @@
+@import '../../../../assets/styles/variables';
+
+.container {
+  height: 70px;
+  margin: 5px 10px;
+
+  &.scroll-enable {
+    overflow-y: scroll;
+  }
+
+  .appointment-item {
+    margin-bottom: 2px;
+    padding: 5px;
+    color: #4949b4;
+    font-size: small;
+    font-weight: 550;
+    text-align: center;
+
+    &:hover {
+      background: $default-background-color;
+      border-radius: 3px;
+      cursor: pointer;
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<ng-container *ngIf="daysInThisMonth.length">
+  <div class="calender weekDays" flexLayout="row wrap">
+    <div class="days" *ngFor="let days of weekDays" fxFlex="1 1 calc(100% / 7)">
+      <p class="text">{{days}}</p>
+    </div>
+  </div>
+
+  <div class="calender" flexLayout="row wrap" fxLayout="start stretched">
+    <mat-card class="date-cell" *ngFor="let dayConfig of daysInThisMonth" fxFlex="1 1 calc(100% / 7)">
+      <ng-container *ngIf="dayConfig">
+        <p class="date">{{dayConfig.date}}</p>
+
+        <app-appointment-list
+          *ngIf="dayConfig.appointmentList.length"
+          [appointmentList]="dayConfig.appointmentList"
+        ></app-appointment-list>
+      </ng-container>
+    </mat-card>
+  </div>
+</ng-container>
+
+<app-content-loading *ngIf="isDataLoading$.value"></app-content-loading>
